@@ -15,11 +15,19 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/','App\Http\Controllers\HomeController');
 
+Route::get('/login', 'App\Http\Controllers\LoginController@index')->name('login');
+Route::post('/login', 'App\Http\Controllers\LoginController@authenticate');
+Route::get('/logout', 'App\Http\Controllers\LoginController@logout')->name('logout');
+
+Route::get('/register', 'App\Http\Controllers\RegisterController@index')->name('register.index');
+Route::post('/register', 'App\Http\Controllers\RegisterController@register');
+
+
 Route::prefix('/config')->group(function(){
-    Route::get('/','App\Http\Controllers\Admin\ConfigController@index');
+    Route::get('/','App\Http\Controllers\Admin\ConfigController@index')->name('config.index')->middleware('auth');
     Route::get('info','App\Http\Controllers\Admin\ConfigController@info');
     Route::get('permissoes','App\Http\Controllers\Admin\ConfigController@permissoes');
-});
+}); 
 
 Route::fallback(function(){
     return view('404');

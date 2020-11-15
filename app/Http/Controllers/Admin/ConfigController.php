@@ -4,26 +4,23 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class ConfigController extends Controller
 {
     public function index(Request $request){
-        $nome = "Thiago";
+        $user = Auth::user();
+        $list = User::all();
+        $nome = $user->name;
         $idade = 25;
         $cidade = $request->input('cidade');
-
-        $lista = [
-            ['nome'=>'farinha', 'qt'=>'2'],
-            ['nome'=>'ovo', 'qt'=>'4'],
-            ['nome'=>'corante', 'qt'=>'1'],
-            ['nome'=>'tompero', 'qt'=>'1']
-        ];
 
         $data = [
             'nome' => $nome,
             'idade'=> $idade,
             'cidade'=> $cidade,
-            'lista'=>$lista 
+            'lista'=>$list
         ];
 
         return view('admin.config', $data);

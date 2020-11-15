@@ -7,6 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Cliente extends Model
 {
+    public $timestamps = false;
     use HasFactory;
-    public $timestamp = false;
 }

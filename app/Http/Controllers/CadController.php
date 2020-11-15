@@ -3,12 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use App\Models\USER;
 
 class CadController extends Controller
 {
     public function list(){
-        $list = DB::select('SELECT * FROM CLIENTES');
+        //$list = DB::select('SELECT * FROM CLIENTES');
+        $list = USER::all();
 
         return view ('tarefas.list', [
             'list' => $list
@@ -21,29 +22,27 @@ class CadController extends Controller
 
     public function addAction(Request $request){
         $request->validate([
-            'nome' => [ 'required', 'string' ],
+            'name' => [ 'required', 'string' ],
             'email' => [ 'required', 'email' ]
         ]);
 
-        $nome = $request->input('nome');
+        $name = $request->input('name');
         $email = $request->input('email');
 
-        DB::insert('INSERT INTO clientes (nome, email) VALUES (:nome, :email)', [
-            'nome'=>$nome,
-            'email'=>$email
-        ]);
+        $t = new USER;
+        $t->name = $name;
+        $t->email= $email;
+        $t->save();
 
         return redirect()->route('tarefas.list');        
     }
 
     public function edit($id){
-        $data = DB::select('SELECT nome, email FROM clientes WHERE id = :id', [
-            'id'=>$id
-        ]);
+        $data = USER::find($id);
 
-        if (count($data)>0){
+        if ($data){
             return view('tarefas.edit', [
-                'data' => $data[0]
+                'data' => $data
             ]);
         } else {
             return redirect()->route('tarefas.list');
@@ -54,28 +53,25 @@ class CadController extends Controller
 
     public function editaction(Request $request, $id){
         $request->validate([
-            'nome' => [ 'required', 'string' ],
+            'name' => [ 'required', 'string' ],
             'email' => [ 'required', 'email' ]
         ]);
 
-        $nome = $request->input('nome');
+        $name = $request->input('name');
         $email = $request->input('email');
 
-        DB::update('UPDATE CLIENTES SET nome = :nome, email = :email WHERE id =:id', [
-            'nome' =>$nome,
-            'email'=>$email,
-            'id'   =>$id
+        USER::find($id)->update([
+            'name'=>$name,
+            'email'=>$email
         ]);
 
-        return redirect()->route('tarefas.list');
+        return redirect()->route('config.index');
     }
 
     public function del($id){
-        DB::delete('DELETE FROM clientes WHERE id = :id', [
-            'id' => $id
-        ]);
+        USER::find($id)->delete();
 
-        return redirect()->route('tarefas.list');
+        return redirect()->route('config.index');
         
     }    
 }

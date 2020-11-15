@@ -6,12 +6,16 @@
     <h1>CONFIGURACOES</h1>
 
     @component('components.alert')
-        Alguma Frase COMPONENTE
+        OlÁ, {{$nome}} - <a href="/logout">Sair</a>
     @endcomponent
 
     <ul>
         @forelse($lista as $item)
-            <li>{{$item['nome']}} - {{$item['qt']}}</li>
+        <li>
+            <a href="{{ route('tarefas.edit', ['id'=>$item->id]) }}">[ editar ]</a>
+            <a href="{{ route('tarefas.del', ['id'=>$item->id]) }}" onclick=" return confirm('Tem Certeza que deseja Excluir?')">[ Excluir ]</a>
+            {{ "Nome: " . $item->name . " -  CPF/CNPJ: " . $item->cliCGC . " -  Email: " . $item->email }}
+        </li>        
         @empty
             <li>Não Há Ingredientes</li>            
         @endforelse
