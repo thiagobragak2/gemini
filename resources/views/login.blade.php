@@ -53,7 +53,7 @@
 						<input type="submit" class="btn btn-primary btn-block btn-lg" value="Entrar"/>
 					</div>
 				</form>				
-				<div class="hint-text small"><a href="/register">Criar Cadastro</a></div>
+        <div class="hint-text small"><a href="/register">Criar Cadastro</a></div>
 			</div>
 		</div>
 	</div>

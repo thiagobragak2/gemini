@@ -17,11 +17,19 @@
         @csrf
 
         Nome: <br/>
-        <input type="text" name = "nome" value = "{{ $data->nome }}" /><br/>
+        <input type="text" name = "name" value = "{{ $data->name }}" /><br/>
 
         Email: <br/>
         <input type="text" name = "email" value = "{{ $data->email }}"/><br/>
 
+        CPF/CNPJ: <br/>
+        <input type="text" name = "cliCGC" value = "{{ $data->cliCGC }}"/><br/>
+
+        Endereço: <br/>
+        <input type="text" name = "address" value = "{{ $data->address }}"/><br/>
+
+        Cidade: <br/>
+        <input type="text" name = "city" value = "{{ $data->city }}"/><br/>
 
         <input type="submit" value= "Salvar" />
 
