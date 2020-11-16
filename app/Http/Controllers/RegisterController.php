@@ -19,25 +19,34 @@ class RegisterController extends Controller
         return view('register');
     }
 
+    public function sucess(){
+        return view('sucess');
+    }    
+
     public function register(Request $request){
         $data = $request->only(['name', 'cliCGC', 'birthday', 'gender', 'cellphone', 'cep', 'address', 'numberAdress', 
             'additionalinfo', 'reference', 'neiborhood', 'city', 'state', 'email', 'password', 'password_confirmation']);
         
-        $this->validate($request, [
-            'cliCGC' => 'required|cpf',
-        ]);
+        if (strlen($data['cliCGC']) > 14){
+            $this->validate($request, [
+                'cliCGC' => 'required|cnpj',
+            ]);
+        }else{
+            $this->validate($request, [
+                'cliCGC' => 'required|cpf',
+            ]);
+        }
 
         $request->validate([
             'name' => [ 'required', 'string', 'max:100' ],
-            'cliCGC' => [ 'required', 'string', 'max:14', 'unique:users' ],
+            'cliCGC' => [ 'required', 'string', 'max:18', 'unique:users' ],
             'birthday' => [ 'required', 'string', 'max:50' ],
-            'gender' => [ 'required', 'string', 'max:1' ],
-            'cellphone' => [ 'required', 'max:11' ],
-            'cep' => [ 'required', 'max:8' ],
+            'cellphone' => [ 'required', 'max:16' ],
+            'cep' => [ 'required', 'max:9' ],
             'address' => [ 'required', 'string', 'max:80' ],
             'numberAdress' => [ 'required', 'string', 'max:80' ],
-            'additionalinfo' => [ 'required', 'string', 'max:80' ],
-            'reference' => [ 'required', 'string', 'max:80' ],
+            'additionalinfo' => [ 'max:80' ],
+            'reference' => [ 'max:80' ],
             'neiborhood' => [ 'required', 'string', 'max:50' ],
             'city' => [ 'required', 'string', 'max:50' ],
             'state' => [ 'required', 'string', 'max:2' ],
@@ -60,7 +69,6 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'cliCGC' => $data['cliCGC'],
             'birthday' => $data['birthday'],
-            'gender' => $data['gender'],
             'cellphone' => $data['cellphone'],
             'cep' => $data['cep'],
             'address' => $data['address'],
@@ -76,6 +84,6 @@ class RegisterController extends Controller
 
         Auth::login($user);
 
-        return redirect()->route('config.index');
+        return view('sucess');
     }
 }

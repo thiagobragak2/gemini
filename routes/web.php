@@ -21,7 +21,7 @@ Route::get('/logout', 'App\Http\Controllers\LoginController@logout')->name('logo
 
 Route::get('/register', 'App\Http\Controllers\RegisterController@index')->name('register.index');
 Route::post('/register', 'App\Http\Controllers\RegisterController@register');
-
+Route::get('/sucess', 'App\Http\Controllers\RegisterController@sucess')->name('sucess');
 
 Route::prefix('/config')->group(function(){
     Route::get('/','App\Http\Controllers\Admin\ConfigController@index')->name('config.index')->middleware('auth');

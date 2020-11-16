@@ -29,34 +29,16 @@
     </div>
   </header>
   <main id="main">
-	<div class="modal-dialog modal-login">
-		<div class="modal-content">
-			
-			<div class="modal-body">
-          @if(session('warning'))
-          @component('components.alert')
-              <ul>
-                  <li>{{ session('warning') }}</li>
-              </ul>
-          @endcomponent
-          @endif
-          
-          <form method="POST">
-              @csrf
-					<div class="form-group">
-						<input type="email" name="email" class="form-control" placeholder="Digite um e-Mail" required="required">
-					</div>
-					<div class="form-group">
-						<input type="password" name="password" class="form-control" placeholder="Digite sua Senha" required="required">
-					</div>
-					<div class="form-group">
-						<input type="submit" class="btn btn-primary btn-block btn-lg" value="Entrar"/>
-					</div>
-				</form>				
-				<div class="hint-text small"><a href="/register">Criar Cadastro</a></div>
-			</div>
-		</div>
-	</div>
+    <div class="modal-dialog modal-login">
+        <div class="modal-content">			
+            <div class="modal-body">        
+                <form>
+                <img src="{{url('assets/img/sucess.png')}}" id="icon" alt="User Icon" />
+                <b>Usuário cadastrado com sucesso. <a class="underlineHover active" href="login" target="_self">Voltar ao Login</a></b>
+                </form>
+            </div>
+        </div>
+    </div>
   </main>
   <script src="assets/vendor/jquery/jquery.min.js"></script>
   <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
